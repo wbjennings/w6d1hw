@@ -31,13 +31,10 @@ def signin():
         user = User.query.filter_by(username=form.username.data).first()
         if user: #this is where I can do that check I reffered to about the password hash stuff. Have some questions with that.
             flash(f'{form.username.data} signed in', 'success')
-            login_user(id)
+            login_user(user)
             return redirect(url_for('main.home'))
         else:
             flash('User doesnt exist or incorrect password', 'warning')
 
     return render_template('signin.jinja', form=form)
 
-@bp.route('/inventory')
-def inventory():
-    return render_template('inventory.jinja')

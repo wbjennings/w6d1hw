@@ -28,15 +28,18 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password, password)
         #What import do I need to use to get these to work? I know I need to make the check in routes.py but what import is this?
 
+    def get_id(self):
+        return self.user_id
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(250))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 
     def __repr__(self):
         return f'Inventory {self.body}'
     
     def commit(self):
-        db.session.add()
+        db.session.add(self)
         db.session.commit()

@@ -9,7 +9,7 @@ def inventory():
     form = PostForm()
     if form.validate_on_submit():
         p = Post(body=form.body.data)
-        p.user_id = current_user.id
+        p.user_id = current_user.user_id
         p.commit()
-        print(f'{p.author} {p.author.posts[0]}')
+        print(p)
     return render_template('inventory.jinja', form=form)
