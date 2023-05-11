@@ -7,3 +7,12 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Register')
+
+class SignInForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = StringField('Password', validators=[DataRequired()])
+    submit = SubmitField('Sign In')
+
+class PostForm(FlaskForm):
+    body = StringField('body', validators=[DataRequired()])
+    submit = SubmitField('Add Vehicle')
