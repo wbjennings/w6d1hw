@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user, current_user
 from app.models import User
 from app import db
 from . import bp
@@ -25,16 +25,23 @@ def register():
 
 @bp.route('/signin', methods=['GET', 'POST'])
 def signin():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
     form = SignInForm()
     if form.validate_on_submit():
         print(form.username.data, form.password.data)
         user = User.query.filter_by(username=form.username.data).first()
         if user: #this is where I can do that check I reffered to about the password hash stuff. Have some questions with that.
-            flash(f'{form.username.data} signed in', 'success')
+            flash(f'{form.username.data} has signed in, welcome!', 'success')
             login_user(user)
             return redirect(url_for('main.home'))
         else:
             flash('User doesnt exist or incorrect password', 'warning')
 
     return render_template('signin.jinja', form=form)
+
+@bp.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('main.home'))
 

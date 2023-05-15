@@ -1,0 +1,21 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+<form action="" method="post">
+<h3>Add Dealership</h3>
+{{ form.hidden_tag() }}
+    <p>
+        {{ form.dealer_name.label }}<br>
+        {{ form.dealer_name(size=32) }}
+    </p>
+    <p>
+        {{ form.dealer_location.label }}<br>
+        {{ form.dealer_location(size=32) }}
+    </p>
+    <p>
+        {{ form.dealer_brand.label }}<br>
+        {{ form.dealer_brand(size=32) }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock content %}

@@ -23,15 +23,30 @@
             <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
-            </li>
+            {% if not current_user.is_authenticated %}
             <li class="nav-item">
             <a class="nav-link" href="{{ url_for('auth.signin') }}">Sign In</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('social.inventory') }}">Inventory</a>
+            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
             </li>
+            {% else %}
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('social.inventory') }}">Add Car</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('social.dealership') }}">Add Dealer</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('social.user_page', username=current_user.username) }}">My Inventory</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('social.dealer_page', username=current_user.username) }}">My Dealerships</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+            </li>
+            {% endif %}
         </ul>
         </div>
     </div>
@@ -48,6 +63,29 @@
     {% endwith %}
 
     {% block content %} {% endblock %}
+    <center><h2>Hot Cars!</h2></center>
+
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{url_for('static', filename='/img/bmw.png')}}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{url_for('static', filename='/img/corvette.png')}}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{url_for('static', filename='/img/r8.png')}}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+            </button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>

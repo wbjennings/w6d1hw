@@ -1,0 +1,19 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+<h3>{{ user.username }}'s Dealerships</h3>
+
+{% for dealer in user.dealerships %}
+<div class="d-flex">
+<div class="card flex-row" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ dealer.dealer_name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ dealer.dealer_brand }}</h6>
+    <p class="card-text">{{ dealer.dealer_location }}</p>
+    <a href="#" class="card-link">Website</a>
+    <a href="#" class="card-link">Click to Call</a>
+  </div>
+</div>
+</div>
+{% endfor %}
+{% endblock content %}

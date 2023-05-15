@@ -12,6 +12,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     email = db.Column(db.String, unique=True)
+    posts = db.relationship('Post', backref='author', lazy=True)
+    dealerships = db.relationship('Dealership', backref='author', lazy=True)
 
 
     def __repr__(self):
@@ -39,6 +41,21 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'Inventory {self.body}'
+    
+    def commit(self):
+        db.session.add(self)
+        db.session.commit()
+
+class Dealership(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    dealer_name = db.Column(db.String(100))
+    dealer_location = db.Column(db.String(50))
+    dealer_brand = db.Column(db.String(50))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+
+    def __repr__(self):
+        return f'Dealerships {self.dealer_name}'
     
     def commit(self):
         db.session.add(self)

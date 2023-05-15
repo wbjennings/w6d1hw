@@ -1,0 +1,15 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+<h3>{{ user.username }}'s Inventory</h3>
+
+{% for post in user.posts %}
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">{{ post.body }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ post.timestamp }}</h5>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
